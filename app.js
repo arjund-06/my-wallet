@@ -2,7 +2,20 @@
 // showLogs();
 let userName = '';
 
+//login ------ 
+
+function encrypt(text) {
+    let arr = [];
+    let res = '';
+    for (i = 0; i < text.length; i += 1) {
+        arr[i] = text.charCodeAt(i);
+        res += arr[i].toString(16);
+    }
+    return res;
+}
+
 async function signIn() {
+    document.getElementById('signInBtn').disabled = true;
     givenDetail = getInputData("signin-email", "signin-password");
     storedDetail = await getStoredData(givenDetail.Email);
 
@@ -19,13 +32,17 @@ async function signIn() {
         alertFn(`Welcome ${name}`, "alert-success");
         showApp(userName, name);
     }
+    document.getElementById('signInBtn').disabled = false;
 }
 
 async function signUp() {
+    document.getElementById('signUpBtn').disabled = true;
     givenDetail = getInputData("signup-email", "signup-password");
     storedDetail = await getStoredData(givenDetail.Email);
-    username = document.getElementById('signup-name').value
-    document.getElementById('signup-name').value = ''
+
+    username = document.getElementById('signup-name').value;
+    document.getElementById('signup-name').value = '';
+
     if (storedDetail.Email == "NONE") {
         await makeNewUser(givenDetail, username);
         // let userName = storedDetail.Email;
@@ -35,14 +52,16 @@ async function signUp() {
         console.log("User already exists")
         alertFn("User already exists", "alert-danger")
     }
+    document.getElementById('signUpBtn').disabled = true;
 }
 
 function getInputData(email, pass) {
     givenEmail = document.getElementById(email).value;
     givenPass = document.getElementById(pass).value;
+    encryptedGivenPass = encrypt(givenPass)
     document.getElementById(email).value = '';
     document.getElementById(pass).value = '';
-    return { Email: givenEmail, Password: givenPass };
+    return { Email: givenEmail, Password: encryptedGivenPass };
 }
 
 function getStoredData(email) {
@@ -134,6 +153,7 @@ function makeLog(transactionId, transaction, amount, balance) {
     } else {
         transaction = "Deduct";
     }
+    let note = document.getElementById('note').value
     db.collection("LoginUser").where('Email', '==', userName).limit(1).get().then((coll) => {
         coll.forEach((doc) => {
             let id = doc.id;
@@ -142,6 +162,7 @@ function makeLog(transactionId, transaction, amount, balance) {
                 Transaction: transaction,
                 Amount: amount,
                 Balance: balance,
+                Note: note,
                 LogTime: generateTime(),
             });
         });
@@ -160,6 +181,7 @@ function showLogs(user) {
                     `<tr style="background-color:black; color:white;">
             <th>S.No.</th>
             <th>Amount</th>
+            <th>Note</th>
             <th>Transaction</th>
             <th>Time</th>
         </tr>`;
@@ -173,6 +195,7 @@ function showLogs(user) {
                         `<tr class="m-2 p-2" style="background-color:${color}; font-weight:bold;">
                     <td> ${doc.data().Id} </td>
                     <td>${doc.data().Amount}</td>
+                    <td>${doc.data().Note}</td>
                     <td>${doc.data().Transaction}</td>
                     <td>${doc.data().LogTime}</td>
                 </tr>`;
@@ -192,7 +215,7 @@ function alertFn(message, type) {
         document.getElementById('alertBox').classList.add('hide');
         document.getElementById('alertBox').classList.remove(type);
         document.getElementById('alertBox').innerHTML = '';
-    }, 3000);
+    }, 3600);
 }
 
 function generateTime() {
@@ -217,6 +240,8 @@ function generateTime() {
     var time = hour + ":" + min + ':' + half;
     return time;
 }
+
+// website travel----- 
 
 function showLogin() {
     document.getElementById('login').classList.remove('hide');

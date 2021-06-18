@@ -30,7 +30,7 @@
             </div>
             <div style="text-align: center;">
                 <span>Are you a new user? <a class="sign" onclick="showSignUp()">Sign Up</a></span> <br>
-                <button class="btn btn-primary mt-2" onclick="signIn()">Sign In</button>
+                <button class="btn btn-primary mt-2" id="signInBtn" onclick="signIn()">Sign In</button>
             </div>
 
         </div>
@@ -55,7 +55,7 @@
 
             <div style="text-align: center;">
                 <span>Are you an existing user? <a class="sign" onclick="showLogin()">Login</a></span> <br>
-                <button class="btn btn-primary mt-2" onclick="signUp()">Sign Up</button>
+                <button class="btn btn-primary mt-2" id="signUpBtn" onclick="signUp()">Sign Up</button>
             </div>
 
         </div>
@@ -84,7 +84,13 @@
                 </div>
                 <div class="col-md-4"></div>
 
-                <input class="my-4 mx-auto" type="number" name="amount" id="amount" placeholder="Amount">
+                <div class="col-md-6">
+                    <input class="my-2 form-control" style="width: 100%;" type="number" name="amount" id="amount" placeholder="Amount">
+                </div>
+                <div class="col-md-6">
+                    <input class="my-2 form-control" style="width: 100%;" type="text" name="amount" id="note" placeholder="Short Note">
+                </div>
+
 
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
