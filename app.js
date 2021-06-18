@@ -112,17 +112,20 @@ function addBalance(sign) {
                         CurrentId: newId,
                         Balance: balance,
                     });
-                    updateBalance(userName);
                     // showLogs();
                     makeLog(newId, sign, amount, balance);
+                    updateBalance(userName);
                 }
 
                 value = document.getElementById('amount').value = '';
-
             });
         });
     });
-
+    updateBalance(userName);
+    setTimeout(() => {
+        console.log("Executed");
+        updateBalance(userName)
+    }, 2200);
 }
 
 function makeLog(transactionId, transaction, amount, balance) {
