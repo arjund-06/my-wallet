@@ -157,7 +157,7 @@ function showLogs(user) {
             db.collection("LoginUser").doc(id).collection("Logs").orderBy("Id", "desc").get().then((logs) => {
                 logDoc = document.getElementById('logTable');
                 logDoc.innerHTML =
-                    `<tr>
+                    `<tr style="background-color:black; color:white;">
             <th>S.No.</th>
             <th>Amount</th>
             <th>Transaction</th>

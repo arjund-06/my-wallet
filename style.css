@@ -35,3 +35,11 @@
     font-size: 20px;
     text-align: center;
 }
+
+tr {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    vertical-align: middle;
+    height: 70px;
+    border: solid black 1.5px;
+}
