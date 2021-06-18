@@ -1,0 +1,37 @@
+.hide {
+    display: none;
+}
+
+
+/* Login and signup page */
+
+#login-container {
+    /* border: 2px solid ; */
+    /* margin-top: 50%; */
+    max-width: 50%;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 1px 1px 33px black;
+}
+
+#login label {
+    font-weight: bold;
+}
+
+.sign {
+    text-decoration: none;
+    color: black;
+}
+
+.sign:hover {
+    cursor: pointer;
+    color: #0b5ed7;
+}
+
+
+/* after login */
+
+#logTable {
+    font-size: 20px;
+    text-align: center;
+}
