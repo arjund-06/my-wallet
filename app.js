@@ -262,6 +262,7 @@ function showApp(user, name) {
 
     userName = user;
     document.getElementById('user-name').innerHTML = name;
+    document.title = name;
     updateBalance(userName);
     showLogs(userName);
 }
