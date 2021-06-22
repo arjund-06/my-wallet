@@ -12,10 +12,16 @@ body {
 #login-container {
     /* border: 2px solid ; */
     /* margin-top: 50%; */
-    max-width: 80%;
+    width: 500px;
     border-radius: 5px;
     padding: 10px;
     box-shadow: 1px 1px 33px black;
+}
+
+@media (max-width: 680px) {
+    #login-container {
+        width: 80%;
+    }
 }
 
 #login label {
@@ -34,6 +40,12 @@ body {
 
 
 /* after login */
+
+#bal-container {
+    font-weight: bolder;
+    font-size: 78px;
+    text-align: center;
+}
 
 #logTable {
     font-size: 20px;

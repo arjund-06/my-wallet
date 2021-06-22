@@ -19,53 +19,59 @@
 
     <div id="login">
         <div class="container my-5" id="login-container">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address:</label>
-                <input type="email" class="form-control" id="signin-email" placeholder="Email">
-            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address:</label>
+                    <input type="email" class="form-control" id="signin-email" placeholder="Email">
+                </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="signin-password" placeholder="Password">
-            </div>
-            <div style="text-align: center;">
-                <span>Are you a new user? <a class="sign" onclick="showSignUp()">Sign Up</a></span> <br>
-                <button class="btn btn-primary mt-2" id="signInBtn" onclick="signIn()">Sign In</button>
-            </div>
-
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="signin-password" placeholder="Password">
+                </div>
+                <div style="text-align: center;">
+                    <span>Are you a new user? <a class="sign" onclick="showSignUp()">Sign Up</a></span> <br>
+                    <button class="btn btn-primary mt-2" id="signInBtn" onclick="signIn()">Sign In</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <div class="hide" id="signup">
         <div class="container my-5" id="login-container">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="Name" class="form-control" id="signup-name" placeholder="Name">
-            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="Name" class="form-control" id="signup-name" placeholder="Name">
+                </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email address:</label>
-                <input type="email" class="form-control" id="signup-email" placeholder="Email">
-            </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address:</label>
+                    <input type="email" class="form-control" id="signup-email" placeholder="Email">
+                </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="signup-password" placeholder="Password">
-            </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="signup-password" placeholder="Password">
+                </div>
 
-            <div style="text-align: center;">
-                <span>Are you an existing user? <a class="sign" onclick="showLogin()">Login</a></span> <br>
-                <button class="btn btn-primary mt-2" id="signUpBtn" onclick="signUp()">Sign Up</button>
-            </div>
-
+                <div style="text-align: center;">
+                    <span>Are you an existing user? <a class="sign" onclick="showLogin()">Login</a></span> <br>
+                    <button class="btn btn-primary mt-2" id="signUpBtn" onclick="signUp()">Sign Up</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <div class="hide" id="inner">
 
-        <div class="container mt-5">
-            <div class="row">
 
+        <div class="container mt-5">
+            <div class="float-right">
+                <button class="btn btn-secondary float-right" onclick="showLogin()">Logout</button>
+            </div>
+
+            <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3"></div>
             </div>
@@ -78,14 +84,16 @@
                 </div>
                 <div class="col-md-4"></div>
 
-                <div class="col-md-4"></div>
-                <div class="my-4 col mx-auto" style="font-weight:bolder; font-size:78px; text-align: center;">
-                    <span class="mx-auto px-auto center" id="balance"></span>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="my-4 col mx-auto" id="bal-container">
+                        <span class="mx-auto px-auto center" id="balance"></span>
+                    </div>
+                    <div class="col"></div>
                 </div>
-                <div class="col-md-4"></div>
 
                 <div class="col-md-6">
-                    <input class="my-2 form-control" style="width: 100%;" type="number" name="amount" id="amount" placeholder="Amount">
+                    <input class="my-2 form-control" min="1" style="width: 100%;" type="number" name="amount" id="amount" placeholder="Amount">
                 </div>
                 <div class="col-md-6">
                     <input class="my-2 form-control" style="width: 100%;" type="text" name="amount" id="note" placeholder="Short Note">

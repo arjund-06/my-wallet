@@ -119,6 +119,8 @@ function addBalance(sign) {
 
                 if (value == '' || parseInt(value) <= 0 || ((sign == '-') && (balance < parseInt(value)))) {
                     alertFn("Please enter a valid amount", "alert-danger");
+                } else if (value.length > 10 || (parseInt(value) + balance).length > 20) {
+                    alertFn("Enter a smaller amount", "alert-danger");
                 } else {
                     amount = parseInt(value);
                     if (sign == '+') {
