@@ -1,5 +1,7 @@
-// updateBalance();
-// showLogs();
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+firebase.analytics();
+
 let userName = '';
 
 //login ------ 
@@ -16,7 +18,7 @@ function encrypt(text) {
 
 async function signIn() {
     document.getElementById('signInBtn').disabled = true;
-    givenDetail = getInputData("signin-email", "signin-password");
+    givenDetail = getInputData("email", "password");
     storedDetail = await getStoredData(givenDetail.Email);
 
     if (storedDetail.Email == "NONE" && storedDetail.Password == "NONE") {
@@ -134,7 +136,7 @@ function addBalance(sign) {
                         Balance: balance,
                     });
                     // showLogs();
-                    makeLog(newId, sign, amount, balance);
+                    makeLog(newId, sign, amount, balance - amount);
                     updateBalance(userName);
                 }
 
@@ -156,6 +158,7 @@ function makeLog(transactionId, transaction, amount, balance) {
         transaction = "Deduct";
     }
     let note = document.getElementById('note').value
+    document.getElementById('note').value = ''
     db.collection("LoginUser").where('Email', '==', userName).limit(1).get().then((coll) => {
         coll.forEach((doc) => {
             let id = doc.id;
@@ -165,6 +168,7 @@ function makeLog(transactionId, transaction, amount, balance) {
                 Amount: amount,
                 Balance: balance,
                 Note: note,
+                Deleted: false,
                 LogTime: generateTime(),
             });
         });
@@ -181,32 +185,55 @@ function showLogs(user) {
                 logDoc = document.getElementById('logTable');
                 logDoc.innerHTML =
                     `<tr style="background-color:black; color:white;">
-            <th>S.No.</th>
             <th>Amount</th>
             <th>Note</th>
             <th>Transaction</th>
             <th>Time</th>
+            <!-- <th></th> -->
         </tr>`;
                 logs.forEach((doc) => {
-                    if (doc.data().Transaction == "Add") {
-                        color = "#00800076";
-                    } else {
-                        color = "#ff000072";
+                    let deleteStatus = doc.data().Deleted;
+
+                    if (deleteStatus == false) {
+                        if (doc.data().Transaction == "Add") {
+                            color = "add";
+                        } else {
+                            color = "deduct";
+                        }
+                        logDoc.innerHTML +=
+                            `<tr class="m-2 p-2 ${color}">
+                        <td>${doc.data().Amount}</td>
+                        <td>${doc.data().Note}</td>
+                        <td>${doc.data().Transaction}</td>
+                        <td>${doc.data().LogTime}</td>
+                        <!-- <td><span class="delete-btn" onclick="deleteLog('${user}','${id}', '${doc.id}', '${doc.data().Balance}')">
+                        <img src="icons/delete_black_24dp.svg" alt="Delete">
+                        </span></td> -->
+                    </tr>`;
                     }
-                    logDoc.innerHTML +=
-                        `<tr class="m-2 p-2" style="background-color:${color}; font-weight:bold;">
-                    <td> ${doc.data().Id} </td>
-                    <td>${doc.data().Amount}</td>
-                    <td>${doc.data().Note}</td>
-                    <td>${doc.data().Transaction}</td>
-                    <td>${doc.data().LogTime}</td>
-                </tr>`;
                 });
             });
         });
     });
-
 }
+
+// async function deleteLog(user, id, doc, updatedBalance) {
+//     console.log("Starting...")
+//     await actualDelete(id, doc, updatedBalance);
+//     console.log("Function done");
+//     showLogs(user);
+// }
+
+// async function actualDelete(id, doc, updatedBalance) {
+//     await db.collection('LoginUser').doc(id).collection("Logs").doc(doc).update({
+//         Deleted: true,
+//     });
+//     console.log("Log updated");
+//     await db.collection('LoginUser').doc(id).update({
+//         Balance: parseInt(updatedBalance),
+//     });
+//     console.log("Balance Updated");
+// }
 
 function alertFn(message, type) {
     document.getElementById('alertBox').classList.remove('hide');
@@ -267,4 +294,26 @@ function showApp(user, name) {
     document.title = name;
     updateBalance(userName);
     showLogs(userName);
+}
+
+function patchForDeleted() {
+    let logCount = 0;
+    console.log("Patch started");
+    db.collection("LoginUser").get().then((users) => {
+        users.forEach((user) => {
+            let userId = user.id;
+            db.collection("LoginUser").doc(userId).collection("Logs").get().then((userLogs) => {
+                userLogs.forEach((log) => {
+                    let logId = log.id;
+                    db.collection("LoginUser").doc(userId).collection("Logs").doc(logId).update({
+                        Deleted: false,
+                    });
+                    logCount++;
+                });
+            });
+        });
+    }).catch((error) => {
+        console.log(error);
+    });
+    console.log(logCount)
 }

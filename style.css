@@ -28,12 +28,12 @@ body {
     font-weight: bold;
 }
 
-.sign {
+.link {
     text-decoration: none;
     color: black;
 }
 
-.sign:hover {
+.link:hover {
     cursor: pointer;
     color: #0b5ed7;
 }
@@ -58,4 +58,39 @@ tr {
     vertical-align: middle;
     height: 70px;
     border: solid black 1.5px;
+}
+
+.add {
+    background-color: #00800076;
+    font-weight: 600;
+}
+
+.add:hover {
+    background-color: #044f04a3;
+}
+
+.deduct {
+    background-color: #ff000072;
+    font-weight: 600;
+}
+
+.deduct:hover {
+    background-color: #af11119e;
+    font-weight: 600;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border-radius: 35px;
+    padding: 5px;
+    padding-bottom: 8px;
+    transition: background-color .2s ease-out;
+}
+
+.delete-btn:hover {
+    background-color: #3f3f40;
+}
+
+.delete-btn:active {
+    background-color: #28292C;
 }
